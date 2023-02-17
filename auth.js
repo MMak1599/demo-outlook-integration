@@ -1,13 +1,16 @@
 //MSAL configuration
 const msalConfig = {
+    //Configuration settings for the project of interest
     auth: {
-        clientId: '<your client ID here>',
-        // comment out if you use a multi-tenant AAD app
-        authority: 'https://login.microsoftonline.com/<your directory ID here>',
-        redirectUri: 'http://localhost:8080'
+        clientId: '3e92bf3f-459b-4bb3-ae2e-ae6134d86e02',
+        authority: "https://login.microsoftonline.com/scottlogic.onmicrosoft.com",
+        redirectUri: 'http://localhost:3000/'
     }
 };
+
+
 const msalRequest = { scopes: [] };
+
 function ensureScope (scope) {
     if (!msalRequest.scopes.some((s) => s.toLowerCase() === scope.toLowerCase())) {
         msalRequest.scopes.push(scope);
