@@ -16,6 +16,8 @@ async function displayUI() {
     btnShowEvents.style = "display: block";
     var btnShowEvents = document.getElementById('btnShowGEvents');
     btnShowEvents.style = "display: block";
+    var btnShowEvents = document.getElementById('btnSendEvents');
+    btnShowEvents.style = "display: block";
 }
 
 async function displayEvents() {
@@ -42,8 +44,14 @@ async function displayEvents() {
   }
 
   async function displayGEvents() {
-    var events = await getGEvents();
-    
+    var events = await getGEvents();  
   }
+
+  async function sendEvent() {
+    var events = await sendInv();  
+  }
+
+
+
 
 

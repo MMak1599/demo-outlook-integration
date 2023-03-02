@@ -2,8 +2,8 @@
 const msalConfig = {
     //Configuration settings for the project of interest
     auth: {
-        clientId: '3e92bf3f-459b-4bb3-ae2e-ae6134d86e02',
-        authority: "https://login.microsoftonline.com/scottlogic.onmicrosoft.com",
+        clientId: '91dd36d0-6463-4d00-8c35-25cdf7ec558d',
+        authority: "https://login.microsoftonline.com/r8w0.onmicrosoft.com",
         redirectUri: 'http://localhost:3000/'
     }
 };

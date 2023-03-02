@@ -16,6 +16,7 @@ async function getUser() {
         .get();
 }
 
+//Hits API for showing a user's calendar
 async function getEvents() {
     //ensure scope adds 'Calendars.read' to the scope array
     ensureScope('Calendars.read');
@@ -31,20 +32,22 @@ async function getEvents() {
     .get();
   }
 
+
+  //Body of request for finding a meeting time 
 const meetingTimeSuggestionsResult = {
   attendees: [ 
     { 
       type: 'required',  
       emailAddress: { 
-        name: 'Gabriela Georgieva',
-        address: 'ggeorgieva@scottlogic.com' 
+        name: 'Alex Wilber',
+        address: 'AlexW@r8w0.onmicrosoft.com' 
       }
     },
     {
     type: 'required',  
     emailAddress: { 
-      name: 'Robin Watson',
-      address: 'rwatson@scottlogic.com' 
+      name: 'Diego Siciliani',
+      address: 'DiegoS@r8w0.onmicrosoft.com' 
     },
   }
   ],  
@@ -79,7 +82,6 @@ const meetingTimeSuggestionsResult = {
   minimumAttendeePercentage: '100'
 };
 
-
 async function getGEvents() {
     //ensure scope adds 'Calendars.read' to the scope array
     ensureScope('Calendars.read');
@@ -88,9 +90,94 @@ async function getGEvents() {
     dateNextWeek.setDate(dateNextWeek.getDate() + 7);
     const query = `startDateTime=${dateNow.toISOString()}&endDateTime=${dateNextWeek.toISOString()}`;
   
-
+//Calls post request for finding meeting time
 return await graphClient
     .api('/me/findMeetingTimes')
 	.post(meetingTimeSuggestionsResult);
 
+}
+
+
+//Body of request for creating a calendar event
+const sendEmail = {
+  message: {
+    subject: 'Outlook Integration',
+    body: {
+      contentType: 'Text',
+      content: 'This is a test.'
+    },
+    toRecipients: [
+      {
+        emailAddress: {
+          address: 'mmak@scottlogic.com'
+        }
+      }
+    ],
+    attachments: [
+     {
+      "@odata.type": "#microsoft.graph.itemAttachment",
+      "name": "Test Event", 
+      "item": {
+        "@odata.type": "microsoft.graph.event",
+        "subject": "Test",
+        "body": {
+          "contentType": "HTML",
+          "content": "Calendar test"
+        },
+        "start": {
+          "dateTime": "2023-02-24T17:00:00",
+          "timeZone": "Pacific Standard Time"
+        },
+        "end": {
+          "dateTime": "2023-02-24T18:00:00",
+          "timeZone": "Pacific Standard Time"
+        }
+      }
+     }
+    ]
+  },
+  saveToSentItems: 'false'
+};
+
+async function sendInv(){
+  ensureScope('Mail.Send');
+    return await graphClient
+      .api('/me/sendMail')
+      .post(sendEmail);
+}
+
+
+const calEvent = {
+  subject: 'Lunch',
+  body: {
+    contentType: 'HTML',
+    content: 'Does this time work?'
+  },
+  start: {
+      dateTime: '2023-03-01T09:00:00',
+      timeZone: 'Europe/London'
+  },
+  end: {
+      dateTime: '2023-03-01T10:00:00',
+      timeZone: 'Europe/London'
+  },
+  location: {
+      displayName: 'Social Hub'
+  },
+  attendees: [
+    {
+      emailAddress: {
+        address: 'mmak@scottlogic.com',
+        name: 'Max Mak'
+      },
+      type: 'required'
+    }
+  ]
+};
+
+async function sendCalInv(){
+  ensureScope('Calendars.ReadWrite');
+    return await graphClient
+      .api('/me/calendar/events')
+      .post(calEvent);
 }

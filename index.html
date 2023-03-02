@@ -18,12 +18,14 @@
     <div id="eventWrapper" style="display: none;">
       <p>Your events retrieved from Microsoft Graph for the upcoming week:</p>
       <ul id="events"></ul>
-    </div>
-    <button id="btnShowGEvents" style="display: none;" onclick="displayGEvents();">Find Meeting Times (Gaby)</button>
+    </div><br /><br />
+    <button id="btnShowGEvents" style="display: none;" onclick="displayGEvents();">Find Meeting Times</button>
     <div id="eventWrapper" style="display: none;">
-      <p>schedule retrieved for G3 over the coming week:</p>
-      <ul id="GEvents"></ul>
-    </div>
+    </div><br /><br />
+  </div>
+  <button id="btnSendEvents" style="display: none;" onclick="sendCalInv();">Send email</button>
+  <div id="eventWrapper" style="display: none;">
+  </div>
   </main>
   <script src="https://alcdn.msauth.net/browser/2.1.0/js/msal-browser.min.js"
     integrity="sha384-EmYPwkfj+VVmL1brMS1h6jUztl4QMS8Qq8xlZNgIT/luzg7MAzDVrRa2JxbNmk/e"
